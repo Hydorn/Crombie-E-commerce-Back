@@ -5,26 +5,28 @@ module.exports = {
     await queryInterface.createTable("ratings", {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.UUIDV4,
+        defaultValue: Sequelize.UUIDV4,
+        type: Sequelize.UUID,
       },
       idProyect: {
-        type: Sequelize.UUIDV4,
+        allowNull:false,
+        type: Sequelize.UUID,
         references: {
-          model: "proyect",
+          model: "proyects",
           key: "id",
         },
       },
       idUser: {
-        type: Sequelize.UUIDV4,
+        allowNull:false,
+        type: Sequelize.UUID,
         references: {
-          model: "user",
+          model: "users",
           key: "id",
         },
       },
       punctuation: {
-        type: Sequelize.NUMBER,
+        type: Sequelize.INTEGER,
       },
       comments: {
         type: Sequelize.STRING,
@@ -35,6 +37,9 @@ module.exports = {
       },
       updatedAt: {
         allowNull: false,
+        type: Sequelize.DATE,
+      },
+      deletedAt: {
         type: Sequelize.DATE,
       },
     });

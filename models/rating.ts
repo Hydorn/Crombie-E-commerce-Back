@@ -7,29 +7,30 @@ import {
   UpdatedAt,
   DeletedAt,
   AllowNull,
-  Unique,
   DataType,
-  BelongsToMany,
+  ForeignKey,
 } from "sequelize-typescript";
-import Rating from "./rating";
+import Proyect from "./proyect";
 import User from "./user";
 
-interface ProyectAttributes {
+interface RatingAttributes {
   id: string;
-  name: string;
-  description: string;
-  contactEmail: string;
+  idProyect: string;
+  idUser: string;
+  punctuation: number;
+  comments: string;
 }
-export interface ProyectCreationAttributes
-  extends Optional<ProyectAttributes, "id"> {}
+
+export interface RatingCreationAttributes
+  extends Optional<RatingAttributes, "id"> {}
 
 @Table({
   timestamps: true,
   paranoid: true,
 })
-class Proyect
-  extends Model<ProyectAttributes, ProyectCreationAttributes>
-  implements ProyectAttributes
+class Rating
+  extends Model<RatingAttributes, RatingCreationAttributes>
+  implements RatingAttributes
 {
   @Column({
     type: DataType.UUID,
@@ -39,19 +40,23 @@ class Proyect
   })
   id: string;
 
-  @Unique(true)
+  @ForeignKey(() => Proyect)
   @AllowNull(false)
   @Column
-  name: string;
+  idProyect: string;
+
+  @ForeignKey(() => User)
+  @AllowNull(false)
+  @Column
+  idUser: string;
 
   @AllowNull(false)
   @Column
-  description: string;
+  punctuation: number;
 
-  @Unique(true)
   @AllowNull(false)
   @Column
-  contactEmail: string;
+  comments: string;
 
   @CreatedAt
   creationDate: Date;
@@ -61,9 +66,6 @@ class Proyect
 
   @DeletedAt
   deletionDate: Date;
-
-  @BelongsToMany(() => User, () => Rating)
-  users: User[];
 }
 
-export default Proyect;
+export default Rating;

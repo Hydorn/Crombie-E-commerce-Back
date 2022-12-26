@@ -3,16 +3,12 @@ import {
   Table,
   Column,
   Model,
-  CreatedAt,
-  UpdatedAt,
   DeletedAt,
   AllowNull,
   Unique,
   DataType,
   BelongsToMany,
 } from "sequelize-typescript";
-import Rating from "./rating";
-import User from "./user";
 
 interface ProyectAttributes {
   id: string;
@@ -53,17 +49,8 @@ class Proyect
   @Column
   contactEmail: string;
 
-  @CreatedAt
-  creationDate: Date;
-
-  @UpdatedAt
-  updatedOn: Date;
-
   @DeletedAt
-  deletionDate: Date;
-
-  @BelongsToMany(() => User, () => Rating)
-  users: User[];
+  deletedAt: Date;
 }
 
 export default Proyect;

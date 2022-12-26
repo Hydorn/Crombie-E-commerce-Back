@@ -3,12 +3,11 @@ import {
   Table,
   Column,
   Model,
-  CreatedAt,
-  UpdatedAt,
   DeletedAt,
   AllowNull,
   DataType,
   ForeignKey,
+  BelongsTo,
 } from "sequelize-typescript";
 import Proyect from "./proyect";
 import User from "./user";
@@ -54,18 +53,17 @@ class Rating
   @Column
   punctuation: number;
 
-  @AllowNull(false)
   @Column
   comments: string;
 
-  @CreatedAt
-  creationDate: Date;
-
-  @UpdatedAt
-  updatedOn: Date;
-
   @DeletedAt
-  deletionDate: Date;
+  deletedAt: Date;
+
+  @BelongsTo(() => Proyect)
+  proyect: Proyect;
+
+  @BelongsTo(() => User)
+  users: User;
 }
 
 export default Rating;

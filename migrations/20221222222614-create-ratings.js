@@ -10,7 +10,7 @@ module.exports = {
         type: Sequelize.UUID,
       },
       idProyect: {
-        allowNull:false,
+        allowNull: false,
         type: Sequelize.UUID,
         references: {
           model: "proyects",
@@ -18,7 +18,7 @@ module.exports = {
         },
       },
       idUser: {
-        allowNull:false,
+        allowNull: false,
         type: Sequelize.UUID,
         references: {
           model: "users",
@@ -26,6 +26,7 @@ module.exports = {
         },
       },
       punctuation: {
+        allowNull: false,
         type: Sequelize.INTEGER,
       },
       comments: {

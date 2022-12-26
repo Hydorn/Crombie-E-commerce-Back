@@ -3,22 +3,19 @@ import {
   Table,
   Column,
   Model,
-  CreatedAt,
-  UpdatedAt,
   DeletedAt,
   AllowNull,
   Unique,
   DataType,
-  BelongsToMany,
 } from "sequelize-typescript";
-import Proyect from "./proyect";
-import Rating from "./rating";
 
 interface UserAttributes {
   id: string;
   firstName: string;
   lastName: string;
   email: string;
+  admin: boolean;
+  password: string;
 }
 export interface UserCreationAttributes
   extends Optional<UserAttributes, "id"> {}
@@ -39,7 +36,6 @@ class User
   })
   id: string;
 
-  @Unique(true)
   @AllowNull(false)
   @Column
   firstName: string;
@@ -53,22 +49,17 @@ class User
   @Column
   email: string;
 
+  @AllowNull(false)
+  @Column
+  password: string;
+
   @Unique(true)
   @AllowNull(false)
   @Column
   admin: boolean;
 
-  @CreatedAt
-  creationDate: Date;
-
-  @UpdatedAt
-  updatedOn: Date;
-
   @DeletedAt
-  deletionDate: Date;
-
-  @BelongsToMany(() => Proyect, () => Rating)
-  proyect: Proyect[];
+  deletedAt: Date;
 }
 
 export default User;

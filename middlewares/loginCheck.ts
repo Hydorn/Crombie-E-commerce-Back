@@ -16,14 +16,15 @@ type Payload = {
 const loginCheck: RequestHandler = async (req, res, next) => {
   try {
     let token = req.headers.authorization?.split(" ")[1];
+
     if (!token) throw new Error("invalid request");
 
     const payload = jwt.verify(token, "lamotitodecarlitos") as Payload;
     const user = await User.findByPk(payload.userID);
+
     res.locals.user = payload;
 
     if (!user) throw new Error("invalid user");
-
     next();
   } catch (err: any) {
     return res.status(401).json(err.message);

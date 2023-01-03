@@ -34,7 +34,7 @@ const loginUser: RequestHandler = async (req, res) => {
         expiresIn: "1h",
       });
 
-      return res.status(200).json({ payload: { token } });
+      return res.status(200).json({ payload: token });
     } else {
       return res.status(400).json({ message: "Invalid email or password" });
     }

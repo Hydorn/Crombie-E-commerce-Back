@@ -15,8 +15,6 @@ const getMe: RequestHandler = async (req, res) => {
   try {
     const user = res.locals.user.dataValues as Response;
     const { password, id, deletedAt, createdAt, updatedAt, ...resp } = user;
-    console.log(resp);
-
     res.status(200).json(resp);
   } catch (err: any) {
     return res.status(400).json(err.message);

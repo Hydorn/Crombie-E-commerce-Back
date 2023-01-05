@@ -3,6 +3,11 @@ import Proyect from "../../models/proyect";
 
 const getProyects: RequestHandler = async (req, res) => {
   try {
+    const id = req.params?.id;
+    if (id) {
+      const proyect = await Proyect.findByPk(id);
+      return res.status(200).json(proyect);
+    }
     const proyects = await Proyect.findAll();
     return res.status(200).json(proyects);
   } catch (err: any) {

@@ -7,7 +7,6 @@ import {
   AllowNull,
   Unique,
   DataType,
-  BelongsToMany,
 } from "sequelize-typescript";
 
 interface ProyectAttributes {

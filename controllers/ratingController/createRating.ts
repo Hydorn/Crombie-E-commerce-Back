@@ -1,12 +1,6 @@
 import { RequestHandler } from "express";
 import Rating, { RatingCreationAttributes } from "../../models/rating";
 
-type Rati = {
-  idProyect: string;
-  idUser: string;
-  punctuation: number;
-  comments?: string;
-};
 type check = (userId: string, proyectId: string) => Promise<boolean>;
 
 const checkRatings: check = async (userId, proyectId) => {
@@ -27,6 +21,8 @@ const createRating: RequestHandler = async (req, res) => {
     if (!body.idProyect) throw new Error("Proyect ID is required");
     if (!body.idUser) throw new Error("User ID is required");
     if (!body.punctuation) throw new Error("Punctuation is required");
+    if (body.punctuation < 0 || body.punctuation > 5)
+      throw new Error("Puntuation must be a value between 0 and 5");
 
     const exists = await checkRatings(body.idUser, body.idProyect);
 

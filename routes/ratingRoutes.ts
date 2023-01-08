@@ -8,8 +8,8 @@ import getRatingAvg from "../controllers/ratingController/getRatingAvg";
 
 const ratingRouter = Router();
 
-/*ratingRouter.get("/?", getRatings);*/
-ratingRouter.get("/?", getRatingAvg);
+ratingRouter.get("/?", getRatings);
+ratingRouter.get("/:proyectID", getRatingAvg);
 ratingRouter.post("/", loginCheck, createRating);
 ratingRouter.put("/:id", loginCheck, modifyRating);
 ratingRouter.delete("/:id", loginCheck, deleteRating);

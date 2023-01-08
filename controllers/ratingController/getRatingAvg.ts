@@ -5,34 +5,24 @@ import Rating from "../../models/rating";
 
 const getRatingAvg: RequestHandler = async (req, res) => {
   try {
-    let proyectID = req.query.proyectID;
+    let proyectID = req.params.proyectID;
     if (!proyectID) throw new Error("You need to specify proyect ID");
     proyectID = String(proyectID);
-
     console.log(proyectID);
-    console.log();
 
-    const response = await Rating.findOne({
+    const ratings = await Rating.findAll({
       where: {
         idProyect: proyectID,
       },
-      include: [
-        {
-          model: Rating, //including ratings array
-          as: "ratings",
-          attributes: [], //but making it empty
-        },
-      ],
-      attributes: {
-        include: [
-          [sequelize.fn("AVG", sequelize.col("ratings.rating")), "avgRating"],
-        ],
-      },
-
-      group: ["Proyect.id"],
     });
-    if (response) return res.status(200).json(response);
-    else throw new Error("This proyect has not been rated yet");
+    let sum = 0;
+
+    ratings.map((el) => (sum = sum + el.punctuation));
+    const average = sum / ratings.length;
+
+    return res.status(200).json({ average, votes: ratings.length });
+    //else throw new Error("This proyect has not been rated yet");
+    res.send("hola");
   } catch (err: any) {
     return res.status(400).json(err.message);
   }

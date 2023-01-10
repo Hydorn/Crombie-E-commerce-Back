@@ -27,7 +27,9 @@ const getRatings: RequestHandler = async (req, res) => {
       if (response) {
         const user = await User.findByPk(response.idUser);
         const proyect = await Proyect.findByPk(response.idProyect);
+
         const resp = {
+          id: response.id,
           userName: user?.firstName,
           userID: user?.id,
           proyectName: proyect?.name,
@@ -52,6 +54,7 @@ const getRatings: RequestHandler = async (req, res) => {
         const getRatingBody = async (el: Rating) => {
           const proyect = await Proyect.findByPk(el.idProyect);
           const ratingBody = {
+            id: el.id,
             userName: user?.firstName,
             userID: user?.id,
             proyectName: proyect?.dataValues?.name,
@@ -80,6 +83,7 @@ const getRatings: RequestHandler = async (req, res) => {
         const getRatingBody = async (el: Rating) => {
           const user = await User.findByPk(el.idUser);
           const ratingBody = {
+            id: el.id,
             userName: user?.firstName,
             userID: user?.id,
             proyectName: proyect?.dataValues?.name,
@@ -92,7 +96,6 @@ const getRatings: RequestHandler = async (req, res) => {
 
         let resp = await Promise.all(response.map(getRatingBody));
         return res.status(200).json(resp);
-        return res.status(200).json(response);
       } else throw new Error("This proyect has not been rated yet");
     }
 

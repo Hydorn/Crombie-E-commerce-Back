@@ -17,7 +17,7 @@ const getMe: RequestHandler = async (req, res) => {
     const { password, deletedAt, createdAt, updatedAt, ...resp } = user;
     res.status(200).json(resp);
   } catch (err: any) {
-    return res.status(400).json(err.message);
+    return res.status(400).json({ message: err.message });
   }
 };
 

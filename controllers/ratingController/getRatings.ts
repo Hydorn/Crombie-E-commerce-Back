@@ -23,10 +23,11 @@ const getRatings: RequestHandler = async (req, res) => {
           idUser: userID,
           idProyect: proyectID,
         },
+        //include:{User,Proyect}
       });
       if (response) {
         const user = await User.findByPk(response.idUser);
-        const proyect = await Proyect.findByPk(response.idProyect);
+        const proyect = await Proyect.findByPk(response?.idProyect);
 
         const resp = {
           id: response.id,
@@ -52,7 +53,7 @@ const getRatings: RequestHandler = async (req, res) => {
         const user = await User.findByPk(response[0].idUser);
 
         const getRatingBody = async (el: Rating) => {
-          const proyect = await Proyect.findByPk(el.idProyect);
+          const proyect = await Proyect.findByPk(el?.idProyect);
           const ratingBody = {
             id: el.id,
             userName: user?.firstName,
@@ -77,8 +78,9 @@ const getRatings: RequestHandler = async (req, res) => {
           idProyect: proyectID,
         },
       });
+      console.log(response);
       if (response) {
-        const proyect = await Proyect.findByPk(response[0].idProyect);
+        const proyect = await Proyect.findByPk(response[0]?.idProyect);
 
         const getRatingBody = async (el: Rating) => {
           const user = await User.findByPk(el.idUser);

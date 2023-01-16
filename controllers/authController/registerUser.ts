@@ -17,6 +17,14 @@ const registerUser: RequestHandler = async (req, res) => {
     if (body.password !== body.repeatPassword)
       throw new Error("password does not match");
 
+    const user = await User.findOne({
+      where: {
+        email: body.email,
+      },
+    });
+
+    if (user) throw new Error("email already in use");
+
     // Encrypt password
     const saltRounds = 10;
     bcrypt.hash(body.password, saltRounds, async function (err, hash) {

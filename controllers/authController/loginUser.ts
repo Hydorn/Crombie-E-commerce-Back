@@ -12,14 +12,14 @@ const loginUser: RequestHandler = async (req, res) => {
   try {
     const body = req.body as Body;
 
-    const [{ dataValues: user }] = await User.findAll({
+    let user = await User.findOne({
+      raw: true,
       where: {
         email: body.email,
       },
     });
 
-    if (!user)
-      return res.send(400).json({ message: "Invalid email or password" });
+    if (!user) throw new Error("Invalid email or password");
 
     const logged = bcrypt.compareSync(body.password, user.password);
 
@@ -35,9 +35,7 @@ const loginUser: RequestHandler = async (req, res) => {
       });
 
       return res.status(200).json({ payload: token });
-    } else {
-      return res.status(400).json({ message: "Invalid email or password" });
-    }
+    } else throw new Error("Invalid email or password");
   } catch (err: any) {
     res.status(400).json(err.message);
   }

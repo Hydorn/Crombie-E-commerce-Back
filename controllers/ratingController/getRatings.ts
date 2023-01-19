@@ -50,7 +50,7 @@ const getRatings: RequestHandler = async (req, res) => {
         },
       });
       if (response) {
-        const user = await User.findByPk(response[0].idUser);
+        const user = await User.findByPk(response[0]?.idUser);
 
         const getRatingBody = async (el: Rating) => {
           const proyect = await Proyect.findByPk(el?.idProyect);

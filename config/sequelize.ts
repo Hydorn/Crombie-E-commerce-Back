@@ -1,18 +1,14 @@
 import { Sequelize, SequelizeOptions } from "sequelize-typescript";
-import Proyect from "../models/proyect";
-import Rating from "../models/rating";
-import User from "../models/user";
 
 import config from "../config/config.js";
 
 const sequelize = new Sequelize({
-  database: config.development.database,
+  host: config.test.host,
+  database: config.test.database,
   dialect: "mysql",
-  username: config.development.username,
-  password: config.development.password,
+  username: config.test.username,
+  password: config.test.password,
   //models: [User, Proyect, Rating],
 } as SequelizeOptions);
-
-sequelize.addModels([User, Proyect, Rating]);
 
 export default sequelize;

@@ -9,8 +9,10 @@ app.use(cors());
 app.use(express.json());
 app.use("/api", appRouter);
 
+app.get("/", (req, res) => res.json("Api running"));
+
 app.listen(process.env.PORT || 3000, async () => {
-  console.log("Server running");
+  console.log(`Server running on port ${process.env.PORT || 3000}`);
   try {
     await sequelize.authenticate();
     console.log("Connection has been established successfully.");

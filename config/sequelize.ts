@@ -1,6 +1,6 @@
-import Proyect from "../models/proyect.js";
-import Rating from "../models/rating.js";
-import User from "../models/user.js";
+import Proyect from "../models/proyect";
+import Rating from "../models/rating";
+import User from "../models/user";
 import { Sequelize, SequelizeOptions } from "sequelize-typescript";
 
 import config from "../config/config.js";

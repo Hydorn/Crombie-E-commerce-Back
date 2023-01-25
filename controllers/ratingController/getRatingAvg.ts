@@ -1,6 +1,4 @@
 import { RequestHandler } from "express";
-import Proyect from "../../models/proyect";
-import User from "../../models/user";
 import { Sequelize } from "sequelize-typescript";
 import Rating from "../../models/rating";
 

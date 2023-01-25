@@ -78,7 +78,6 @@ const getRatings: RequestHandler = async (req, res) => {
           idProyect: proyectID,
         },
       });
-      console.log(response);
       if (response) {
         const proyect = await Proyect.findByPk(response[0]?.idProyect);
 

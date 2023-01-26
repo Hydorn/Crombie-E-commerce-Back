@@ -2,6 +2,16 @@ import sequelize from "./config/sequelize";
 import cors from "cors";
 import express from "express";
 import appRouter from "./routes";
+const fs = require("fs");
+const https = require("https");
+
+const key = fs.readFileSync('private.key');
+const cert = fs.readFileSync('certificate.crt');
+
+const cred = {
+  key,
+  cert
+};
 
 const app = express();
 
@@ -21,3 +31,6 @@ app.listen(process.env.PORT || 3000, async () => {
     console.log(err.message);
   }
 });
+
+const httpsServer = https.createServer(cred, app);
+httpsServer.listen(8443);
